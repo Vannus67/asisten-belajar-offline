@@ -1,0 +1,54 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R] /Count 3 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R >> >> /MediaBox [0 0 612 792] /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 484 >>
+stream
+BT /F1 12 Tf 50 720 Td 16 TL (CHAPTER 1: PHOTOSYNTHESIS OVERVIEW) ' (Photosynthesis is the fundamental biological process by which green plants,) ' (algae, and cyanobacteria convert light energy into chemical energy.) ' (This chemical energy is stored in carbohydrate molecules such as glucose.) ' (The chemical equation for oxygenic photosynthesis is:) ' (6CO2 + 6H2O + Light Energy -> C6H12O6 + 6O2.) ' (The green pigment chlorophyll absorbs blue and red wavelengths of light.) ' ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R >> >> /MediaBox [0 0 612 792] /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 448 >>
+stream
+BT /F1 12 Tf 50 720 Td 16 TL (CHAPTER 2: LIGHT REACTIONS AND THYLAKOID MEMBRANE) ' (The light-dependent reactions take place on the thylakoid membrane inside chloroplasts.) ' (During this stage, photons strike photosystem II, splitting water molecules through photolysis.) ' (This releases protons, electrons, and free oxygen gas as a byproduct.) ' (Electrons move through an electron transport chain to produce ATP and NADPH energy carriers.) ' ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 3 0 R >> >> /MediaBox [0 0 612 792] /Contents 9 0 R >>
+endobj
+9 0 obj
+<< /Length 438 >>
+stream
+BT /F1 12 Tf 50 720 Td 16 TL (CHAPTER 3: CALVIN CYCLE AND CARBON FIXATION) ' (The Calvin cycle takes place in the stroma of the chloroplast.) ' (It uses the ATP and NADPH synthesized in the light reactions to convert CO2 into glucose.) ' (The enzyme RuBisCO catalyzes the initial carbon fixation step with ribulose 1,5-bisphosphate.) ' (Temperature, light intensity, and CO2 concentration are the primary factors affecting the rate.) ' ET
+endstream
+endobj
+xref
+0 10
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000127 00000 n 
+0000000197 00000 n 
+0000000323 00000 n 
+0000000858 00000 n 
+0000000984 00000 n 
+0000001483 00000 n 
+0000001609 00000 n 
+trailer
+<< /Size 10 /Root 1 0 R >>
+startxref
+2098
+%%EOF

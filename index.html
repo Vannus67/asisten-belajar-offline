@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA — Offline Browser AI Assistant</title>
+  <meta name="description" content="Local, offline browser AI assistant for studying documents, answering questions, and distinguishing prompts using pure HTML, JavaScript, and CSS.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+  <div class="app-layout" id="app-root">
+    
+    <!-- Top Navigation Header -->
+    <header class="app-header" id="main-header">
+      <div class="header-left">
+        <button class="btn-icon-mobile" id="btn-toggle-sidebar" aria-label="Toggle Sidebar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="brand-container">
+          <div class="brand-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+              <path d="M12 6v6l4 2"></path>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+            </svg>
+          </div>
+          <div class="brand-titles">
+            <div class="brand-row">
+              <h1 class="brand-name">AURA AI</h1>
+              <span class="badge-offline" id="status-offline-pill">
+                <span class="pulse-dot"></span>
+                <span>100% Offline Browser</span>
+              </span>
+            </div>
+            <span class="brand-tagline">Local Browser Assistant • Zero Network Required</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Tabs Navigation -->
+      <nav class="header-nav-tabs" id="main-nav-tabs">
+        <button class="nav-tab-btn active" id="tab-btn-chat">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Chat Assistant</span>
+        </button>
+
+        <button class="nav-tab-btn" id="tab-btn-quiz">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>Quiz Studio</span>
+          <span class="quiz-badge-new">TEST</span>
+        </button>
+      </nav>
+
+      <div class="header-right">
+        <!-- Quick stats -->
+        <div class="active-material-badge" id="header-material-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span id="header-doc-text">No Material Loaded</span>
+        </div>
+
+        <!-- Attitude Selector Pill -->
+        <button class="btn-attitude-pill" id="btn-toggle-attitude" title="Click to cycle attitude: Sassy & Witty / Chill / Coach">
+          <span id="attitude-icon">🌶️</span>
+          <span id="attitude-label">Sassy</span>
+        </button>
+
+        <!-- Upload Button in Header -->
+        <button class="btn-primary" id="btn-header-upload">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <span>Upload File</span>
+        </button>
+
+        <!-- Clear Chat -->
+        <button class="btn-icon" id="btn-clear-chat" title="Clear Conversation">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button class="btn-icon" id="btn-toggle-theme" title="Toggle Dark/Light Mode">
+          <svg id="theme-icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <!-- Sidebar -->
+      <aside class="app-sidebar" id="app-sidebar">
+        <div class="sidebar-top">
+          <div class="sidebar-header-row">
+            <h2 class="sidebar-title">Study Library</h2>
+            <span class="badge-count" id="sidebar-doc-count">0 Files</span>
+          </div>
+
+          <div class="sidebar-action-buttons">
+            <input type="file" id="file-input" accept=".txt,.pdf,.docx,.md,.csv,.tsv,.json,.js,.py,.html,.css,.sql,.rtf" multiple style="display: none;">
+            <button class="btn-sidebar-upload" id="btn-sidebar-upload">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Upload Any File</span>
+            </button>
+
+            <button class="btn-sidebar-sample" id="btn-load-sample">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span>Load Sample Study Notes</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Documents Container -->
+        <div class="sidebar-scrollable">
+          <div class="doc-list" id="documents-container">
+            <!-- Dynamic documents inserted here -->
+            <div class="empty-docs" id="empty-docs-placeholder">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+              <p class="empty-title">No Material Uploaded</p>
+              <p class="empty-subtitle">Upload PDF, DOCX, CSV, JSON, code, or notes, or click <em>"Load Sample Notes"</em> above.</p>
+            </div>
+          </div>
+
+          <!-- Smart Intent Guide -->
+          <div class="intent-info-box">
+            <div class="intent-info-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Autonomous Thinking Core</span>
+            </div>
+            <p class="intent-info-desc">
+              The AI answers with its own synthesized words and reasoning:
+            </p>
+            <div class="intent-pill-row">
+              <span class="badge-chitchat">💡 General & Memory</span>
+              <span class="intent-expl">Answers math, science, coding, and recalls past questions</span>
+            </div>
+            <div class="intent-pill-row">
+              <span class="badge-doc">📄 Semantic File Grounding</span>
+              <span class="intent-expl">Synthesizes file concepts with page citations</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <span class="privacy-note">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            Runs 100% locally in your browser
+          </span>
+        </div>
+      </aside>
+
+      <!-- Main Content View Area -->
+      <main class="chat-main">
+
+        <!-- VIEW 1: CHAT ASSISTANT -->
+        <div class="view-panel active" id="view-chat">
+          <div class="chat-messages-container" id="chat-messages">
+            <!-- Welcome Screen -->
+            <div class="welcome-card" id="welcome-card">
+              <div class="welcome-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+                  <path d="M12 6v6l4 2"></path>
+                </svg>
+              </div>
+              <h2 class="welcome-heading">How can I help you learn today?</h2>
+              <p class="welcome-subtext">
+                I am your offline browser AI assistant with conversational memory, universal file understanding, and standalone reasoning. Ask me anything, or upload a document to study!
+              </p>
+
+              <div class="starter-chips-section">
+                <span class="starter-label">Try these instant prompts:</span>
+                <div class="starter-chips" id="starter-chips">
+                  <button class="chip-btn" data-prompt="Halo! Siapa kamu dan apa saja yang bisa kamu lakukan?">
+                    👋 <span>Say "Halo!" (Bilingual)</span>
+                  </button>
+                  <button class="chip-btn" data-prompt="Jelaskan apa itu gravitasi dan teori relativitas secara sederhana">
+                    🌌 <span>Explain Gravity (General Knowledge)</span>
+                  </button>
+                  <button class="chip-btn" data-prompt="Berapa hasil dari 25 * 14 + 150?">
+                    🧮 <span>Math Calculation</span>
+                  </button>
+                  <button class="chip-btn" data-prompt="Summarize the uploaded material and list key takeaways">
+                    📋 <span>Summarize Material</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chat Input Bar -->
+          <div class="chat-input-bar">
+            <form class="chat-input-form" id="chat-form">
+              <button type="button" class="btn-attach" id="btn-attach-file" title="Upload material">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+              </button>
+
+              <textarea 
+                id="prompt-input" 
+                placeholder="Ask anything, discuss your document, or give instructions in English or Indonesian..." 
+                rows="1" 
+                autocomplete="off"
+              ></textarea>
+
+              <button type="submit" class="btn-send" id="btn-send-prompt" aria-label="Send Prompt">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </form>
+            <div class="input-hint">
+              <span>Press <strong>Enter</strong> to send, <strong>Shift + Enter</strong> for a new line</span>
+              <span class="hint-bullet">•</span>
+              <span id="active-intent-hint">Ready • Conversational Memory Active</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIEW 2: INTERACTIVE QUIZ STUDIO -->
+        <div class="view-panel" id="view-quiz" style="display: none;">
+          <div class="quiz-container">
+            <div class="quiz-header-card">
+              <div class="quiz-header-text">
+                <h2 class="quiz-main-title">Interactive Quiz Studio</h2>
+                <p class="quiz-main-subtext">Generate tailored practice tests and flashcards from any uploaded material with instant grading and explanations.</p>
+              </div>
+            </div>
+
+            <!-- Quiz Setup Form -->
+            <div class="quiz-setup-card" id="quiz-setup-card">
+              <h3 class="setup-heading">Configure Your Quiz</h3>
+              <div class="setup-grid">
+                <div class="setup-field">
+                  <label for="quiz-doc-select">Target Study Material:</label>
+                  <select id="quiz-doc-select" class="quiz-select">
+                    <option value="">Select an uploaded document...</option>
+                  </select>
+                </div>
+
+                <div class="setup-field">
+                  <label for="quiz-type-select">Question Style:</label>
+                  <select id="quiz-type-select" class="quiz-select">
+                    <option value="multiple_choice">Multiple Choice (4 Options)</option>
+                    <option value="true_false">True / False</option>
+                    <option value="mixed">Mixed Format</option>
+                  </select>
+                </div>
+
+                <div class="setup-field">
+                  <label for="quiz-count-select">Number of Questions:</label>
+                  <select id="quiz-count-select" class="quiz-select">
+                    <option value="3">3 Questions (Quick Check)</option>
+                    <option value="5" selected>5 Questions (Standard)</option>
+                    <option value="10">10 Questions (Deep Review)</option>
+                  </select>
+                </div>
+
+                <div class="setup-field">
+                  <label for="quiz-topic-input">Custom Focus Topic (Optional):</label>
+                  <input type="text" id="quiz-topic-input" class="quiz-input" placeholder="e.g. RuBisCO, Light Reactions, Paging...">
+                </div>
+              </div>
+
+              <div class="setup-actions">
+                <button class="btn-primary-quiz" id="btn-generate-quiz">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  <span>Generate Interactive Quiz</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quiz Player (Active when quiz is generated) -->
+            <div class="quiz-player-card" id="quiz-player-card" style="display: none;">
+              <div class="quiz-progress-bar">
+                <span class="quiz-question-counter" id="quiz-question-counter">Question 1 of 5</span>
+                <span class="quiz-score-badge" id="quiz-score-tracker">Score: 0 / 0</span>
+              </div>
+
+              <div class="quiz-question-body">
+                <h4 class="quiz-question-title" id="quiz-question-title">Question loading...</h4>
+                <div class="quiz-options-list" id="quiz-options-list">
+                  <!-- Dynamic option buttons -->
+                </div>
+
+                <!-- Explanation Banner (Revealed after answering) -->
+                <div class="quiz-explanation-box" id="quiz-explanation-box" style="display: none;">
+                  <div class="explanation-status" id="quiz-explanation-status"></div>
+                  <div class="explanation-detail" id="quiz-explanation-detail"></div>
+                </div>
+              </div>
+
+              <div class="quiz-player-actions">
+                <button class="btn-quiz-nav" id="btn-quiz-next" style="display: none;">
+                  <span>Next Question</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Quiz Results Card (Shown when finished) -->
+            <div class="quiz-results-card" id="quiz-results-card" style="display: none;">
+              <div class="results-header">
+                <div class="results-trophy">🏆</div>
+                <h3 class="results-title">Quiz Completed!</h3>
+                <p class="results-score" id="results-score-text">You scored 5 out of 5 (100%)</p>
+              </div>
+
+              <div class="results-actions">
+                <button class="btn-primary" id="btn-quiz-retake">Retake Quiz</button>
+                <button class="btn-sidebar-sample" id="btn-quiz-new">Configure New Quiz</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- Document Viewer Modal -->
+    <div class="modal-backdrop" id="doc-modal" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title-group">
+            <h3 class="modal-title" id="modal-doc-title">Document Inspection</h3>
+            <span class="modal-subtitle" id="modal-doc-meta">Full text & indexed chunks</span>
+          </div>
+          <button class="btn-close-modal" id="btn-close-doc-modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body" id="modal-doc-body">
+          <!-- Text and chunks rendered here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Citation Excerpt Modal -->
+    <div class="modal-backdrop" id="citation-modal" style="display: none;">
+      <div class="modal-dialog small">
+        <div class="modal-header">
+          <h3 class="modal-title" id="citation-modal-title">Source Excerpt</h3>
+          <button class="btn-close-modal" id="btn-close-citation-modal">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body" id="citation-modal-body">
+          <!-- Excerpt content -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts in dependency order -->
+  <script src="lib/pdf.min.js"></script>
+  <script src="lib/mammoth.browser.min.js"></script>
+  <script src="js/sampleData.js"></script>
+  <script src="js/documentParser.js"></script>
+  <script src="js/intentClassifier.js"></script>
+  <script src="js/retrievalEngine.js"></script>
+  <script src="js/semanticMatcher.js"></script>
+  <script src="js/studyAssistant.js"></script>
+  <script src="js/quizEngine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
